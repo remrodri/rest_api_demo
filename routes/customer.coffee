@@ -48,4 +48,19 @@ routes = (app) ->
             res.status(400).send 'The name, email and preferred_barber is required'
 
 
+    app.get '/customer/:id', (req, res) ->
+
+        criteria =
+            _id: req.params.id
+
+        customer.findOne criteria, (err, _customer) ->
+            if err
+                res.json err, 400
+            else
+                if _customer is null or _customer is undefined
+                    res.status(404).send 'customer not found'
+                else
+                    res.json _customer
+
+
 module.exports = routes

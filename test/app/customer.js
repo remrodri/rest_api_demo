@@ -16,9 +16,9 @@
       customer = null;
       before(function(done) {
         customer = {
-          name: 'roli butron',
-          email: 'rolib2@gmail.com',
-          preferred_barber: 'test'
+          name: 'David',
+          email: 'david@gmail.com',
+          preferred_barber: 'David'
         };
         return done();
       });
@@ -35,9 +35,9 @@
       customer = null;
       before(function(done) {
         customer = {
-          name: 'Juan vargas',
-          email: 'juangmail.com',
-          preferred_barber: 'test test'
+          name: 'Sam',
+          email: 'samgmail.com',
+          preferred_barber: 'Sam'
         };
         return done();
       });
@@ -48,20 +48,48 @@
         });
       });
     });
-    return describe('POST /customer', function() {
+    describe('POST /customer', function() {
       var customer;
       customer = null;
       before(function(done) {
         customer = {
-          name: 'alex aguilar',
-          email: 'rolib2@gmail.com',
-          preferred_barber: 'test 2'
+          name: 'Nancy',
+          email: 'david@gmail.com',
+          preferred_barber: 'Nancy'
         };
         return done();
       });
       return it('should return status 400 Email already exists', function(done) {
         return client.post('customer/', customer, function(err, res, body) {
           res.statusCode.should.be.exactly(400);
+          return done();
+        });
+      });
+    });
+    describe('GET /customer/:id', function() {
+      var id;
+      id = null;
+      before(function(done) {
+        id = id_customer;
+        return done();
+      });
+      return it('should return OK', function(done) {
+        return client.get('customer/' + id, {}, function(err, res, body) {
+          res.statusCode.should.be.exactly(200);
+          return done();
+        });
+      });
+    });
+    return describe('GET / customer/:id', function() {
+      var id;
+      id = null;
+      before(function(done) {
+        id = '5601dd84be9ec1e0205e61qw';
+        return done();
+      });
+      return it('should customer not found', function(done) {
+        return client.get('customer/' + id, {}, function(err, res, body) {
+          res.statusCode.should.be.exactly(404);
           return done();
         });
       });

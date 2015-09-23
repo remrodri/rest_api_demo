@@ -11,9 +11,9 @@ describe 'Customer', ->
 
         before (done) ->
             customer =
-                name: 'roli butron'
-                email: 'rolib2@gmail.com'
-                preferred_barber: 'test'
+                name: 'David'
+                email: 'david@gmail.com'
+                preferred_barber: 'David'
 
             done()
 
@@ -29,9 +29,9 @@ describe 'Customer', ->
 
         before (done) ->
             customer =
-                name: 'Juan vargas'
-                email: 'juangmail.com'
-                preferred_barber: 'test test'
+                name: 'Sam'
+                email: 'samgmail.com'
+                preferred_barber: 'Sam'
 
             done()
 
@@ -47,9 +47,9 @@ describe 'Customer', ->
 
         before (done) ->
             customer =
-                name: 'alex aguilar'
-                email: 'rolib2@gmail.com'
-                preferred_barber: 'test 2'
+                name: 'Nancy'
+                email: 'david@gmail.com'
+                preferred_barber: 'Nancy'
 
             done()
 
@@ -57,4 +57,33 @@ describe 'Customer', ->
 
             client.post 'customer/', customer, (err, res, body) ->
                 (res.statusCode).should.be.exactly 400
+                done()
+
+
+    describe 'GET /customer/:id', ->
+        id = null
+
+        before (done) ->
+            id = id_customer
+            done()
+
+        it 'should return OK', (done) ->
+
+            client.get 'customer/'+id, {}, (err, res, body) ->
+                (res.statusCode).should.be.exactly 200
+                done()
+
+
+    describe 'GET / customer/:id', ->
+        id = null
+
+        before (done) ->
+            id = '5601dd84be9ec1e0205e61qw'
+            done()
+
+        it 'should customer not found', (done) ->
+
+            client.get 'customer/'+id, {}, (err, res, body) ->
+                (res.statusCode).should.be.exactly 404
+
                 done()

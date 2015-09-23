@@ -29,7 +29,7 @@
   };
 
   routes = function(app) {
-    return app.post('/customer', function(req, res) {
+    app.post('/customer', function(req, res) {
       var attributes, isValid;
       attributes = {
         name: req.body.name,
@@ -60,6 +60,23 @@
       } else {
         return res.status(400).send('The name, email and preferred_barber is required');
       }
+    });
+    return app.get('/customer/:id', function(req, res) {
+      var criteria;
+      criteria = {
+        _id: req.params.id
+      };
+      return customer.findOne(criteria, function(err, _customer) {
+        if (err) {
+          return res.json(err, 400);
+        } else {
+          if (_customer === null || _customer === void 0) {
+            return res.status(404).send('customer not found');
+          } else {
+            return res.json(_customer);
+          }
+        }
+      });
     });
   };
 
