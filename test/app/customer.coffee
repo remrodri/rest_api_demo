@@ -81,9 +81,41 @@ describe 'Customer', ->
             id = '5601dd84be9ec1e0205e61qw'
             done()
 
-        it 'should customer not found', (done) ->
+        it 'should return customer not found', (done) ->
 
             client.get 'customer/'+id, {}, (err, res, body) ->
+                (res.statusCode).should.be.exactly 404
+                done()
+
+
+    describe 'PUT /customer/:id', ->
+        data = null
+        before (done) ->
+            data =
+                preferred_barber: "Dain DDDDDDDDDD"
+            done()
+
+        it 'should return OK', (done) ->
+
+            client.put 'customer/'+id_customer, data, (err, res, body) ->
+                (res.statusCode).should.be.exactly 200
+                done()
+
+
+    describe 'PUT / customer/:id', ->
+        data = null
+
+        before (done) ->
+            id_customer = "5601dd84be9ec1e0205e6144"
+            data =
+                name: "roli roli"
+                email: "roliroli@gmail.com"
+                preferred_barber: "Dain"
+            done()
+
+        it 'should return customer not found', (done) ->
+
+            client.put 'customer/'+id_customer, data, (err, res, body) ->
                 (res.statusCode).should.be.exactly 404
 
                 done()

@@ -63,4 +63,43 @@ routes = (app) ->
                     res.json _customer
 
 
+    app.put '/customer/:id', (req, res) ->
+
+        criteria =
+            _id: req.params.id
+
+        customer.findOne criteria, (err, _customer) ->
+            if err
+                res.json err, 400
+            else
+                if _customer is null or _customer is undefined
+                    res.status(404).send 'customer not found'
+                else
+                    email_custumer = _customer.email
+
+                    if req.body.name and req.body.name isnt ""
+                        _customer.name = req.body.name
+
+                    if req.body.preferred_barber and req.body.preferred_barber isnt ""
+                        _customer.preferred_barber = req.body.preferred_barber
+
+                    if req.body.email and req.body.email isnt ""
+
+                        thereIsEmail req.body.email, (err, flag) ->
+                            if flag is false
+                                _customer.email = req.body.email
+                                _customer.save (err, update_customer) ->
+                                    if err
+                                        res.json err, 500
+                                    res.json update_customer
+                            else
+                                res.status(404).send 'Email already exists'
+
+                    else
+                        _customer.save (err, update_customer) ->
+                            if err
+                                rres.json err, 500
+                            res.json update_customer
+
+
 module.exports = routes

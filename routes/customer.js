@@ -61,7 +61,7 @@
         return res.status(400).send('The name, email and preferred_barber is required');
       }
     });
-    return app.get('/customer/:id', function(req, res) {
+    app.get('/customer/:id', function(req, res) {
       var criteria;
       criteria = {
         _id: req.params.id
@@ -74,6 +74,52 @@
             return res.status(404).send('customer not found');
           } else {
             return res.json(_customer);
+          }
+        }
+      });
+    });
+    return app.put('/customer/:id', function(req, res) {
+      var criteria;
+      criteria = {
+        _id: req.params.id
+      };
+      return customer.findOne(criteria, function(err, _customer) {
+        var email_custumer;
+        if (err) {
+          return res.json(err, 400);
+        } else {
+          if (_customer === null || _customer === void 0) {
+            return res.status(404).send('customer not found');
+          } else {
+            email_custumer = _customer.email;
+            if (req.body.name && req.body.name !== "") {
+              _customer.name = req.body.name;
+            }
+            if (req.body.preferred_barber && req.body.preferred_barber !== "") {
+              _customer.preferred_barber = req.body.preferred_barber;
+            }
+            if (req.body.email && req.body.email !== "") {
+              return thereIsEmail(req.body.email, function(err, flag) {
+                if (flag === false) {
+                  _customer.email = req.body.email;
+                  return _customer.save(function(err, update_customer) {
+                    if (err) {
+                      res.json(err, 500);
+                    }
+                    return res.json(update_customer);
+                  });
+                } else {
+                  return res.status(404).send('Email already exists');
+                }
+              });
+            } else {
+              return _customer.save(function(err, update_customer) {
+                if (err) {
+                  rres.json(err, 500);
+                }
+                return res.json(update_customer);
+              });
+            }
           }
         }
       });

@@ -80,7 +80,7 @@
         });
       });
     });
-    return describe('GET / customer/:id', function() {
+    describe('GET / customer/:id', function() {
       var id;
       id = null;
       before(function(done) {
@@ -89,6 +89,41 @@
       });
       return it('should customer not found', function(done) {
         return client.get('customer/' + id, {}, function(err, res, body) {
+          res.statusCode.should.be.exactly(404);
+          return done();
+        });
+      });
+    });
+    describe('PUT /customer/:id', function() {
+      var data;
+      data = null;
+      before(function(done) {
+        data = {
+          preferred_barber: "Dain DDDDDDDDDD"
+        };
+        return done();
+      });
+      return it('should return OK', function(done) {
+        return client.put('customer/' + id_customer, data, function(err, res, body) {
+          res.statusCode.should.be.exactly(200);
+          return done();
+        });
+      });
+    });
+    return describe('PUT / customer/:id', function() {
+      var data;
+      data = null;
+      before(function(done) {
+        id_customer = "5601dd84be9ec1e0205e6144";
+        data = {
+          name: "roli roli",
+          email: "roliroli@gmail.com",
+          preferred_barber: "Dain"
+        };
+        return done();
+      });
+      return it('should customer not found', function(done) {
+        return client.put('customer/' + id_customer, data, function(err, res, body) {
           res.statusCode.should.be.exactly(404);
           return done();
         });
