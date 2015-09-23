@@ -41,7 +41,6 @@
         if (isValid) {
           return thereIsEmail(req.body.email, function(err, flag) {
             var new_customer;
-            console.log("flag: " + flag);
             if (flag === false) {
               new_customer = new customer(attributes);
               return new_customer.save(function(err, customer) {

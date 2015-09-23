@@ -87,7 +87,7 @@
         id = '5601dd84be9ec1e0205e61qw';
         return done();
       });
-      return it('should customer not found', function(done) {
+      return it('should return customer not found', function(done) {
         return client.get('customer/' + id, {}, function(err, res, body) {
           res.statusCode.should.be.exactly(404);
           return done();
@@ -122,7 +122,7 @@
         };
         return done();
       });
-      return it('should customer not found', function(done) {
+      return it('should return customer not found', function(done) {
         return client.put('customer/' + id_customer, data, function(err, res, body) {
           res.statusCode.should.be.exactly(404);
           return done();

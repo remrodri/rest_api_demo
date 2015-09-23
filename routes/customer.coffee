@@ -33,7 +33,7 @@ routes = (app) ->
 
             if isValid
                 thereIsEmail req.body.email, (err, flag) ->
-                    console.log "flag: " + flag
+
                     if flag is false
                         new_customer = new customer attributes
                         new_customer.save (err, customer) ->

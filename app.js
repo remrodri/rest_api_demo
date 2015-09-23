@@ -8,7 +8,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://192.168.99.100:27017/ume');
+var conf = require('./config/database');
+
+mongoose.connect('mongodb://' + conf.host+ ':' + conf.port + '/' + conf.databse);
 
 var app = express();
 
