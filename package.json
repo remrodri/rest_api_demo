@@ -11,7 +11,13 @@
     "debug": "~2.2.0",
     "express": "~4.12.4",
     "jade": "~1.9.2",
+    "mocha": "^2.3.3",
     "morgan": "~1.5.3",
-    "serve-favicon": "~2.2.1"
+    "request-json": "^0.5.3",
+    "serve-favicon": "~2.2.1",
+    "should": "^7.1.0"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0"
   }
 }
