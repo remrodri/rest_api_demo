@@ -12,6 +12,7 @@
     "express": "~4.12.4",
     "jade": "~1.9.2",
     "mocha": "^2.3.3",
+    "mongoose": "^4.1.8",
     "morgan": "~1.5.3",
     "request-json": "^0.5.3",
     "serve-favicon": "~2.2.1",
